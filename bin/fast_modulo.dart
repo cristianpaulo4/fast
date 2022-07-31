@@ -28,6 +28,7 @@ class FastModulo {
     await _createConstants(name: name);
     await _createRepository(name: name);
     await _createServices(name: name);
+    await _createFactory(name: name);
   }
 
   static _createPage({required String name}) async {
@@ -126,5 +127,20 @@ class FastModulo {
     await File(
       './lib/features/$name/data/services/${name}_impl_services.dart',
     ).writeAsString(servicesImplTemplate);  
+  }
+
+  // criando factory
+  static _createFactory({required String name}) async {
+    final factory = File(
+      '${DirectoryUtils.getPathScritp()}templates/factory.txt',
+    );   
+
+    String factoryTemplate = await factory.readAsString();    
+    factoryTemplate = factoryTemplate.replaceAll('{{class-name}}', ToUppCase.convert(name)).replaceAll('{{file-name}}', name);
+    
+    await File(
+      './lib/factory/${name}_factory.dart',
+    ).writeAsString(factoryTemplate);  
+   
   }
 }

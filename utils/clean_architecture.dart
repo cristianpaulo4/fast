@@ -23,6 +23,14 @@ class CleanArchitecture {
 
     String utils = "./lib/features/$name/utils";
 
+    //factory
+    String factory = "./lib/factory";
+    //shared
+    String shared = "./lib/shared";
+
+    String routes = "./lib/routes";
+
+
     return [
       data,
       datasources,
@@ -40,6 +48,9 @@ class CleanArchitecture {
       widgets, 
       utils,
       servicesDomain,
+      factory,
+      shared,
+      routes,
     ];
   }
 }
