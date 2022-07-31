@@ -1,0 +1,5 @@
+import '../../domain/repositories/{{file-name}}_repository.dart';
+
+class {{class-name}}ImplRepository implements {{class-name}}Repository  {
+  
+}
