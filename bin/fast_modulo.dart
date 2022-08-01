@@ -3,10 +3,10 @@ import 'dart:io';
 
 import 'package:interact/interact.dart';
 
-import '../utils/directory_utils.dart';
-import '../utils/validate_utils.dart';
-import '../utils/clean_architecture.dart';
-import '../utils/to_upp_case.dart';
+import 'utils/directory_utils.dart';
+import 'utils/validate_utils.dart';
+import 'utils/clean_architecture.dart';
+import 'utils/to_upp_case.dart';
 
 
 class FastModulo {
@@ -28,12 +28,12 @@ class FastModulo {
     await _createConstants(name: name);
     await _createRepository(name: name);
     await _createServices(name: name);
-    await _createFactory(name: name);
+    await _createFactory(name: name); 
   }
 
   static _createPage({required String name}) async {
     final page = File(
-      '${DirectoryUtils.getPathScritp()}templates/page.txt',
+      '${DirectoryUtils.getPathScritp()}bin/templates/page.txt',
     );
 
     String pageTemplate = await page.readAsString();    
@@ -52,7 +52,7 @@ class FastModulo {
   // criando controller
   static _createController({required String name}) async {
     final controller = File(
-      '${DirectoryUtils.getPathScritp()}templates/controller.txt',
+      '${DirectoryUtils.getPathScritp()}bin/templates/controller.txt',
     );
 
     String controllerTemplate = await controller.readAsString();    
@@ -66,7 +66,7 @@ class FastModulo {
   // criando constants
   static _createConstants({required String name}) async {
     final constants = File(
-      '${DirectoryUtils.getPathScritp()}templates/constants.txt',
+      '${DirectoryUtils.getPathScritp()}bin/templates/constants.txt',
     );
 
     String constantsTemplate = await constants.readAsString();    
@@ -80,7 +80,7 @@ class FastModulo {
   // criando repository
   static _createRepository({required String name}) async {
     final repository = File(
-      '${DirectoryUtils.getPathScritp()}templates/repository/repository.txt',
+      '${DirectoryUtils.getPathScritp()}bin/templates/repository/repository.txt',
     );   
 
     String repositoryTemplate = await repository.readAsString();    
@@ -92,7 +92,7 @@ class FastModulo {
     
     // criando a implementação
      final repositoryImpl = File(
-      '${DirectoryUtils.getPathScritp()}templates/repository/repository_impl.txt',      
+      '${DirectoryUtils.getPathScritp()}bin/templates/repository/repository_impl.txt',      
     );
 
     String repositoryImplTemplate = await repositoryImpl.readAsString();    
@@ -106,7 +106,7 @@ class FastModulo {
   // criando services
   static _createServices({required String name}) async {
     final services = File(
-      '${DirectoryUtils.getPathScritp()}templates/services/services.txt',
+      '${DirectoryUtils.getPathScritp()}bin/templates/services/services.txt',
     );   
 
     String servicesTemplate = await services.readAsString();    
@@ -118,7 +118,7 @@ class FastModulo {
     
     // criando a implementação
      final servicesImpl = File(
-      '${DirectoryUtils.getPathScritp()}templates/services/services_impl.txt',      
+      '${DirectoryUtils.getPathScritp()}bin/templates/services/services_impl.txt',      
     );
 
     String servicesImplTemplate = await servicesImpl.readAsString();    
@@ -132,7 +132,7 @@ class FastModulo {
   // criando factory
   static _createFactory({required String name}) async {
     final factory = File(
-      '${DirectoryUtils.getPathScritp()}templates/factory.txt',
+      '${DirectoryUtils.getPathScritp()}bin/templates/factory.txt',
     );   
 
     String factoryTemplate = await factory.readAsString();    
