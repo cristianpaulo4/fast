@@ -1,7 +1,7 @@
 # Fast CLI
 ## Versão do dart 2.17.6
 
-Instalação
+Instalação / Update
 ```
 dart pub global activate --source git https://github.com/cristianpaulo4/fast.git
 ```
