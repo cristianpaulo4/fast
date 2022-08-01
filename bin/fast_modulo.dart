@@ -33,9 +33,9 @@ class FastModulo {
   void createNew() async {
     String nameProject = await readNamePubspec();
     print(nameProject);
-   /*  grind.run(
+    grind.run(
       'flutter pub add provider',
-    ); */
+    ); 
     String path = DirectoryUtils.getPathScritp();
     final listName = path.split("/");
     String name = listName.elementAt(listName.length - 2);
