@@ -23,7 +23,7 @@ class FastModulo {
     print("Digite o nome do modulo:");
 
     nameModulo = Input(
-      prompt: 'Nome do modulo ex: login, home...',
+      prompt: 'Nome do modulo ex: login, home, cadastro_produto...',
       validator: ValidateUtils.emptyValidate,
     ).interact();
     await createFile(name: nameModulo);
