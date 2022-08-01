@@ -5,6 +5,7 @@ class CleanArchitecture {
     String datasources = "./lib/features/$name/data/datasources";
     String repositories = "./lib/features/$name/data/repositories";
     String services = "./lib/features/$name/data/services";
+    String model = "./lib/features/$name/data/model";
 
     /// camada de domain
     String domain = "./lib/features/$name/domain";
@@ -51,6 +52,7 @@ class CleanArchitecture {
       factory,
       shared,
       routes,
+      model,
     ];
   }
 }
