@@ -6,6 +6,7 @@ class Routes {
   static const String home = "home";
   static Map<String, WidgetBuilder> routes() => {
         home: (context) {
+          final args = ModalRoute.of(context)?.settings.arguments as Map?;
           return HomePage();
         },
       };
