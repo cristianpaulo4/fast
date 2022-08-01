@@ -35,10 +35,7 @@ class FastModulo {
     print(nameProject);
     grind.run(
       'flutter pub add provider',
-    ); 
-    String path = DirectoryUtils.getPathScritp();
-    final listName = path.split("/");
-    String name = listName.elementAt(listName.length - 2);
+    );     
     createFile(name: "home");
     _createRoutes(name: nameProject.trim());
     _createFileMain(name: nameProject.trim()); 
