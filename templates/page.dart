@@ -23,11 +23,12 @@ class _{{class-name}}PageState extends State<{{class-name}}Page> {
 
   @override
   Widget build(BuildContext context) {
-     return Scaffold(
-           appBar: AppBar(title: Text({{class-name}}Constants.title),),
-           body: Container(),
-        );
+    return Scaffold(
+      appBar: AppBar(
+        title: Text({{class-name}}Constants.title),
+      ),
+      body: Container(),
+    );
   }
 }
-
 """;
