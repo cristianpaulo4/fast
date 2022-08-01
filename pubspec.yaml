@@ -18,6 +18,6 @@ dev_dependencies:
 
 dart:
   assets:
-    - templates
+    - lib/assets
 
 
