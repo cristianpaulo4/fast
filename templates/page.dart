@@ -1,3 +1,4 @@
+String pageTemplate = """
 import 'package:flutter/material.dart';
 import '../controller/{{file-name}}_controller.dart';
 import '../constants/{{file-name}}_constants.dart';
@@ -28,3 +29,4 @@ class _{{class-name}}PageState extends State<{{class-name}}Page> {
   }
 }
 
+""";

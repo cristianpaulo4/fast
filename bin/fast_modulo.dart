@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:interact/interact.dart';
 
+import '../templates/page.dart';
 import '../utils/directory_utils.dart';
 import '../utils/directory_utils.dart';
 import '../utils/validate_utils.dart';
@@ -25,19 +26,15 @@ class FastModulo {
   /// criar arquivos
   static createFile({required String name}) async {
     await _createPage(name: name);
-    await _createController(name: name);
+    /* await _createController(name: name);
     await _createConstants(name: name);
     await _createRepository(name: name);
     await _createServices(name: name);
-    await _createFactory(name: name); 
+    await _createFactory(name: name);  */
   }
 
   static _createPage({required String name}) async {
-    final page = File(
-      '${DirectoryUtils.getPathScritp()}/templates/page.txt',
-    );
-
-    String pageTemplate = await page.readAsString();    
+   
     pageTemplate = pageTemplate.replaceAll('{{class-name}}', ToUppCase.convert(name)).replaceAll('{{file-name}}', name);
 
     // criando estrutura clean arquiteture
