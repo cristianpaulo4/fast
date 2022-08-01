@@ -2,6 +2,7 @@ String pageTemplate = """
 import 'package:flutter/material.dart';
 import '../controller/{{file-name}}_controller.dart';
 import '../constants/{{file-name}}_constants.dart';
+import 'package:provider/provider.dart';
 
 
 class {{class-name}}Page extends StatefulWidget {
