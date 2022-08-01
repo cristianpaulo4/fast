@@ -1,6 +1,6 @@
 
 
-String repository = """
+String repositoryTemplate = """
 abstract class {{class-name}}Repository {
   
 }

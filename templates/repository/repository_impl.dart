@@ -1,4 +1,4 @@
-String repositoryTemplate = """
+String repositoryImplTemplate = """
 import '../../domain/repositories/{{file-name}}_repository.dart';
 import '../../domain/services/{{file-name}}_services.dart';
 
