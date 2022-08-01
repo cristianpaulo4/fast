@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:interact/interact.dart';
 import '../templates/constants.dart';
+import '../templates/constants_value.dart';
 import '../templates/controller.dart';
 import '../templates/factory.dart';
 import '../templates/file_main.dart';
@@ -56,6 +57,7 @@ class FastModulo {
     await _createPage(name: name);
     await _createController(name: name);
     await _createConstants(name: name);
+    await _createConstantsValues(name: name);
     await _createRepository(name: name);
     await _createServices(name: name);
     await _createFactory(name: name);
@@ -91,6 +93,15 @@ class FastModulo {
     await File(
       './lib/features/$name/presentation/constants/${name}_constants.dart',
     ).writeAsString(constantsTemplate);
+  }
+
+  // criando constants
+  static _createConstantsValues({required String name}) async {
+    constantsValueTemplate =
+        constantsValueTemplate.replaceAll('{{class-name}}', ToUppCase.convert(name));
+    await File(
+      './lib/features/$name/presentation/constants/${name}_values.dart',
+    ).writeAsString(constantsValueTemplate);
   }
 
   // criando repository
