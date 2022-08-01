@@ -1,3 +1,6 @@
+# Fast CLI
+## Versão do dart 2.17.6
+
 Instalação
 ```
 dart pub global activate --source git https://github.com/cristianpaulo4/fast.git
@@ -11,8 +14,8 @@ dart pub global run fast
 Listar todos packages globais
 ```
 dart pub global list
-
 ```
+
 Remover
 ```
 dart pub global deactivate fast
