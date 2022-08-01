@@ -33,12 +33,10 @@ class CleanArchitecture {
 
 
     return [
-      data,
-      datasources,
+      data,      
       repositories,
       services,
-      domain,
-      datasourcesDomain, 
+      domain,      
       entities, 
       repositoriesDomain, 
       usecase, 
