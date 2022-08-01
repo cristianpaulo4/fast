@@ -30,16 +30,28 @@ class FastModulo {
   }
 
   /// iniciando em um novo projeto
-  static void createNew() {
-    grind.run(
-      'flutter pub add provider',      
-    ); 
+  void createNew() async {
+    String nameProject = await readNamePubspec();
+    print(nameProject);
+   /*  grind.run(
+      'flutter pub add provider',
+    ); */
     String path = DirectoryUtils.getPathScritp();
     final listName = path.split("/");
     String name = listName.elementAt(listName.length - 2);
     createFile(name: "home");
-    _createRoutes(name: name);
-    _createFileMain(name: name);
+    _createRoutes(name: nameProject.trim());
+    _createFileMain(name: nameProject.trim()); 
+  }
+
+  Future<String> readNamePubspec() async {
+    final name = File(
+      'pubspec.yaml',
+    );
+    String file = await name.readAsString();
+    final list = file.split("\n");
+    final namePubspec = list.first.split(":")[1];
+    return namePubspec;
   }
 
   /// criar arquivos

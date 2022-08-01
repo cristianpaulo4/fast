@@ -15,7 +15,7 @@ void main(List<String> arguments) {
 
   switch (languages[selection]) {
     case "Novo_Projeto":
-      FastModulo.createNew();
+      FastModulo().createNew();
       break;
     default:
       FastModulo.initModulo();
