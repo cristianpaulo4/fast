@@ -175,14 +175,14 @@ class FastModulo {
   // criando session model
   static _createSessionModel() async {
     await File(
-      './lib/shared/section/session_model/session_model.dart',
+      './lib/shared/session/session_model/session_model.dart',
     ).writeAsString(session_model_template);
   }
 
   // criando session app
   static _createSessionApp() async {
     await File(
-      './lib/shared/section/app_session.dart',
+      './lib/shared/session/app_session.dart',
     ).writeAsString(app_session);
   }
 }

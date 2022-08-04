@@ -57,7 +57,7 @@ class CleanArchitecture {
     //shared
     String sharedWidgets = "./lib/shared/widgets";
     //shared
-    String sharedSection = "./lib/shared/section/session_model";
+    String sharedSection = "./lib/shared/session/session_model";
      // routes
     String routes = "./lib/routes";
 
