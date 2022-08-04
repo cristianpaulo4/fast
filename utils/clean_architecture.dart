@@ -26,10 +26,8 @@ class CleanArchitecture {
 
     //factory
     String factory = "./lib/factory";
-    //shared
-    String shared = "./lib/shared";
-
-    String routes = "./lib/routes";
+    
+   
 
 
     return [
@@ -47,10 +45,31 @@ class CleanArchitecture {
       widgets, 
       utils,
       servicesDomain,
-      factory,
-      shared,
-      routes,
+      factory,   
       model,
+    ];
+  }
+  static List<String> createInNewProject({required String name}) {   
+    //shared
+    String shared = "./lib/shared";
+    //shared
+    String sharedConstants = "./lib/shared/constants";
+    //shared
+    String sharedWidgets = "./lib/shared/widgets";
+    //shared
+    String sharedSection = "./lib/shared/section/session_model";
+     // routes
+    String routes = "./lib/routes";
+
+   
+
+
+    return [      
+      routes,
+      shared,
+      sharedConstants,
+      sharedWidgets,
+      sharedSection,
     ];
   }
 }

@@ -11,6 +11,8 @@ import '../templates/repository/repository_impl.dart';
 import '../templates/routes.dart';
 import '../templates/services/services.dart';
 import '../templates/services/services_impl.dart';
+import '../templates/session/app_session.dart';
+import '../templates/session/session_model_tamplate.dart';
 import '../utils/directory_utils.dart';
 import '../utils/validate_utils.dart';
 import '../utils/clean_architecture.dart';
@@ -36,10 +38,16 @@ class FastModulo {
     print(nameProject);
     grind.run(
       'flutter pub add provider',
-    );     
+    );
+    // criando estrutura clean arquiteture
+    for (var item in CleanArchitecture.createInNewProject(name: 'home')) {
+      Directory(item).createSync(recursive: true);
+    }
     createFile(name: "home");
     _createRoutes(name: nameProject.trim());
-    _createFileMain(name: nameProject.trim()); 
+    _createFileMain(name: nameProject.trim());
+    _createSessionApp();
+    _createSessionModel();
   }
 
   Future<String> readNamePubspec() async {
@@ -97,8 +105,8 @@ class FastModulo {
 
   // criando constants
   static _createConstantsValues({required String name}) async {
-    constantsValueTemplate =
-        constantsValueTemplate.replaceAll('{{class-name}}', ToUppCase.convert(name));
+    constantsValueTemplate = constantsValueTemplate.replaceAll(
+        '{{class-name}}', ToUppCase.convert(name));
     await File(
       './lib/features/$name/presentation/constants/${name}_values.dart',
     ).writeAsString(constantsValueTemplate);
@@ -162,5 +170,19 @@ class FastModulo {
     await File(
       './lib/main.dart',
     ).writeAsString(fileMainTemplate);
+  }
+
+  // criando session model
+  static _createSessionModel() async {
+    await File(
+      './lib/shared/section/session_model/session_model.dart',
+    ).writeAsString(session_model_template);
+  }
+
+  // criando session app
+  static _createSessionApp() async {
+    await File(
+      './lib/shared/section/app_session.dart',
+    ).writeAsString(app_session);
   }
 }
