@@ -1,10 +1,15 @@
 import 'dart:io';
+
+import 'package:grinder/grinder.dart' as grind;
 import 'package:interact/interact.dart';
+
 import '../templates/constants.dart';
 import '../templates/constants_value.dart';
 import '../templates/controller.dart';
 import '../templates/factory.dart';
 import '../templates/file_main.dart';
+import '../templates/file_main_generate_routes.dart';
+import '../templates/generate_routes.dart';
 import '../templates/page.dart';
 import '../templates/repository/repository.dart';
 import '../templates/repository/repository_impl.dart';
@@ -13,11 +18,10 @@ import '../templates/services/services.dart';
 import '../templates/services/services_impl.dart';
 import '../templates/session/app_session.dart';
 import '../templates/session/session_model_tamplate.dart';
-import '../utils/directory_utils.dart';
-import '../utils/validate_utils.dart';
 import '../utils/clean_architecture.dart';
 import '../utils/to_upp_case.dart';
-import 'package:grinder/grinder.dart' as grind;
+import '../utils/validate_utils.dart';
+import 'enum/enum_generate_routes.dart';
 
 class FastModulo {
   /// iniciando modulo
@@ -34,6 +38,16 @@ class FastModulo {
 
   /// iniciando em um novo projeto
   void createNew() async {
+    bool isGenerateRoutes = false;
+    // selecionar tipo/modelo de rotas
+     final routes = [opcoesGenerateRoutes.routes.name, opcoesGenerateRoutes.generateRoutes.name];
+    final selection = Select(
+      prompt: 'Selecione o modelo de rotas',
+      options: routes,
+    ).interact();
+
+    isGenerateRoutes = selection == opcoesGenerateRoutes.generateRoutes.index;
+
     String nameProject = await readNamePubspec();
     print(nameProject);
     grind.run(
@@ -44,8 +58,14 @@ class FastModulo {
       Directory(item).createSync(recursive: true);
     }
     createFile(name: "home");
-    _createRoutes(name: nameProject.trim());
-    _createFileMain(name: nameProject.trim());
+
+    if (isGenerateRoutes) {
+      _createGenerateRoutes(name: nameProject.trim());    
+      _createFileMainWithGenerateRoutes(name: nameProject.trim()); 
+    }else{      
+      _createRoutes(name: nameProject.trim());
+      _createFileMain(name: nameProject.trim());
+    }    
     _createSessionApp();
     _createSessionModel();
   }
@@ -164,12 +184,29 @@ class FastModulo {
     ).writeAsString(routesTemplate);
   }
 
+  // criando routes
+  static _createGenerateRoutes({required String name}) async {
+    generateRoutesTemplate =
+        generateRoutesTemplate.replaceAll('{{file-name}}', name);
+    await File(
+      './lib/routes/routes.dart',
+    ).writeAsString(generateRoutesTemplate);
+  }
+
   // criando arquimo main
   static _createFileMain({required String name}) async {
     fileMainTemplate = fileMainTemplate.replaceAll('{{file-name}}', name);
     await File(
       './lib/main.dart',
     ).writeAsString(fileMainTemplate);
+  }
+
+  // criando arquimo main
+  static _createFileMainWithGenerateRoutes({required String name}) async {
+    fileMainTemplateGenerateRoutes = fileMainTemplateGenerateRoutes.replaceAll('{{file-name}}', name);
+    await File(
+      './lib/main.dart',
+    ).writeAsString(fileMainTemplateGenerateRoutes);
   }
 
   // criando session model
