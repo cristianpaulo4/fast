@@ -16,8 +16,7 @@ class CreateRoutes {
     bool isExist = await current.exists();
     if (!isExist) return;
 
-    final list = current.listSync(recursive: true, followLinks: false);
-    print(list);
+    final list = current.listSync(recursive: true, followLinks: false);  
     bool contains = list.any(
       (element) => element.path == _pathRoutes,
     );
@@ -73,7 +72,7 @@ class CreateRoutes {
     int indexPageOnSwich = fileAsLines.indexWhere(
       (element) => element.contains('switch (routeSettings.name) {'),
     );
-    print(indexPageOnSwich);
+  
 
     // adicionando page no switch case
     String namePage = name.replaceFirst(name[0], name[0].toUpperCase());

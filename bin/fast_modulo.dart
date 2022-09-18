@@ -18,31 +18,23 @@ import 'creates/create_repository.dart';
 import 'creates/create_routes.dart';
 import 'creates/create_services.dart';
 import 'creates/create_values.dart';
-import 'enum/enum_generate_routes.dart';
 
 class FastModulo {
   /// iniciando modulo
   static void initModulo() async {
     String? nameModulo;
+    String nameProject = await GetProjectName.getName();
     print("Digite o nome do modulo:");
 
     nameModulo = Input(
       prompt: 'Nome do modulo ex: login, home, cadastro_produto...',
       validator: ValidateUtils.emptyValidate,
     ).interact();
-    await createModulo(name: nameModulo);
+    await createModulo(name: nameModulo, nameProject: nameProject.trim());
   }
 
   /// iniciando em um novo projeto
   void createNew() async {
-    bool isGenerateRoutes = false;
-    // selecionar tipo/modelo de rotas
-    final selection = Select(
-      prompt: 'Selecione o modelo de rotas',
-      options: opcoesGenerateRoutes.values.map((e) => e.name).toList(),
-    ).interact();
-
-    isGenerateRoutes = selection == opcoesGenerateRoutes.generateRoutes.index;
     String nameProject = await GetProjectName.getName();
     nameProject = nameProject.trim();
 
@@ -51,23 +43,16 @@ class FastModulo {
     for (var item in CleanArchitecture.createInNewProject(name: 'home')) {
       Directory(item).createSync(recursive: true);
     }
-
-    if (isGenerateRoutes) {
-      await CreateRoutes.addRoute(name: "home", nameProject: nameProject);
-      CreateFileMain.create(name: "home", namePackage: nameProject);
-    } else {
-      _createRoutes(name: nameProject.trim());
-      CreateFileMain.create(name: nameProject.trim(), namePackage: nameProject);
-    }
-    createModulo(name: "home");
+    createModulo(name: "home", nameProject: nameProject);
     _createSessionApp();
     _createSessionModel();
   }
 
   /// criar arquivos
-  static createModulo({required String name}) async {
-    String nameProject = await GetProjectName.getName();
-
+  static createModulo({
+    required String name,
+    required String nameProject,
+  }) async {
     await CreatePage.createPage(name: name);
     await CreateController.createController(name: name);
     await CreateConstants.createConstants(name: name);
