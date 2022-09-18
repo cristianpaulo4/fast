@@ -7,7 +7,8 @@ import '../../templates/generate_routes.dart';
 class CreateRoutes {
   static final String _pathRoutes = "lib/routes/routes.dart";
 
-  static Future<void> addRoute(String name) async {
+  static Future<void> addRoute(
+      {required String name, required String nameProject}) async {
     var current = Directory('lib/routes/');
 
     bool isExist = await current.exists();
@@ -23,6 +24,7 @@ class CreateRoutes {
       _addNewRoute(
         name: name,
         directory: current,
+        nameProject: nameProject,
       );
     } else {
       _createRoutes(name: name);
@@ -31,8 +33,10 @@ class CreateRoutes {
 
   // criando routes
   static _createRoutes({required String name}) async {
-    generateRoutesTemplate =
-        generateRoutesTemplate.replaceAll('{{file-name}}', name);
+    generateRoutesTemplate = generateRoutesTemplate.replaceAll(
+      '{{file-name}}',
+      name,
+    );
     await File(
       './lib/routes/routes.dart',
     ).writeAsString(
@@ -44,6 +48,7 @@ class CreateRoutes {
   static Future<void> _addNewRoute({
     required String name,
     required Directory directory,
+    required String nameProject,
   }) async {
     final list = directory.listSync(recursive: true, followLinks: false);
     var file = list.firstWhere(
@@ -56,7 +61,7 @@ class CreateRoutes {
     int indexAddRoutes = fileAsLines.indexWhere(
       (element) => element.contains('class Routes {'),
     );
-   
+
     fileAsLines.insertAll(
       indexAddRoutes + 1,
       ["static const String $name = \"$name\";"],
@@ -79,7 +84,7 @@ class CreateRoutes {
     fileAsLines.insertAll(
       0,
       [
-        "import 'package:name/features/$name/presentation/pages/${name}_page.dart';"
+        "import 'package:$nameProject/features/$name/presentation/pages/${name}_page.dart';"
       ],
     );
 

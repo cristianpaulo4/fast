@@ -37,7 +37,7 @@ class FastModulo {
   /// iniciando em um novo projeto
   void createNew() async {
     bool isGenerateRoutes = false;
-    // selecionar tipo/modelo de rotas    
+    // selecionar tipo/modelo de rotas
     final selection = Select(
       prompt: 'Selecione o modelo de rotas',
       options: opcoesGenerateRoutes.values.map((e) => e.name).toList(),
@@ -54,7 +54,7 @@ class FastModulo {
     createModulo(name: "home");
 
     if (isGenerateRoutes) {
-      CreateRoutes.addRoute(nameProject.trim());
+      CreateRoutes.addRoute(name: nameProject.trim(), nameProject: nameProject);
       _createFileMainWithGenerateRoutes(name: nameProject.trim());
     } else {
       _createRoutes(name: nameProject.trim());
@@ -75,7 +75,10 @@ class FastModulo {
     await CreateRepository.createRepository(name: name);
     await CreateServices.createServices(name: name);
     await CreateFactory.createFactory(name: name);
-    await CreateRoutes.addRoute(name);
+    await CreateRoutes.addRoute(
+      name: name,
+      nameProject: nameProject,
+    );
     await CreateFileMain.create(
       name: name,
       namePackage: nameProject,
