@@ -7,8 +7,10 @@ import '../../templates/generate_routes.dart';
 class CreateRoutes {
   static final String _pathRoutes = "lib/routes/routes.dart";
 
-  static Future<void> addRoute(
-      {required String name, required String nameProject}) async {
+  static Future<void> addRoute({
+    required String name,
+    required String nameProject,
+  }) async {
     var current = Directory('lib/routes/');
 
     bool isExist = await current.exists();
@@ -27,7 +29,7 @@ class CreateRoutes {
         nameProject: nameProject,
       );
     } else {
-      _createRoutes(name: name);
+      _createRoutes(name: nameProject);
     }
   }
 
