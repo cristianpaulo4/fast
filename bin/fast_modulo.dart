@@ -8,6 +8,7 @@ import '../templates/routes.dart';
 import '../templates/session/app_session.dart';
 import '../templates/session/session_model_tamplate.dart';
 import '../utils/clean_architecture.dart';
+import '../utils/get_project_name.dart';
 import '../utils/validate_utils.dart';
 import 'creates/create_constants.dart';
 import 'creates/create_controller.dart';
@@ -36,20 +37,15 @@ class FastModulo {
   /// iniciando em um novo projeto
   void createNew() async {
     bool isGenerateRoutes = false;
-    // selecionar tipo/modelo de rotas
-    final routes = [
-      opcoesGenerateRoutes.routes.name,
-      opcoesGenerateRoutes.generateRoutes.name
-    ];
+    // selecionar tipo/modelo de rotas    
     final selection = Select(
       prompt: 'Selecione o modelo de rotas',
-      options: routes,
+      options: opcoesGenerateRoutes.values.map((e) => e.name).toList(),
     ).interact();
 
     isGenerateRoutes = selection == opcoesGenerateRoutes.generateRoutes.index;
+    String nameProject = await GetProjectName.getName();
 
-    String nameProject = await readNamePubspec();
-    print(nameProject);
     grind.run('flutter pub add provider');
     // criando estrutura clean arquiteture
     for (var item in CleanArchitecture.createInNewProject(name: 'home')) {
@@ -62,24 +58,16 @@ class FastModulo {
       _createFileMainWithGenerateRoutes(name: nameProject.trim());
     } else {
       _createRoutes(name: nameProject.trim());
-      CreateFileMain.create(name: nameProject.trim());
+      CreateFileMain.create(name: nameProject.trim(), namePackage: nameProject);
     }
     _createSessionApp();
     _createSessionModel();
   }
 
-  Future<String> readNamePubspec() async {
-    final name = File(
-      'pubspec.yaml',
-    );
-    String file = await name.readAsString();
-    final list = file.split("\n");
-    final namePubspec = list.first.split(":")[1];
-    return namePubspec;
-  }
-
   /// criar arquivos
   static createModulo({required String name}) async {
+    String nameProject = await GetProjectName.getName();
+
     await CreatePage.createPage(name: name);
     await CreateController.createController(name: name);
     await CreateConstants.createConstants(name: name);
@@ -88,7 +76,10 @@ class FastModulo {
     await CreateServices.createServices(name: name);
     await CreateFactory.createFactory(name: name);
     await CreateRoutes.addRoute(name);
-    await CreateFileMain.create(name: name);
+    await CreateFileMain.create(
+      name: name,
+      namePackage: nameProject,
+    );
   }
 
   // criando routes

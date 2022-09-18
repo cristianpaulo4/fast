@@ -12,7 +12,10 @@ class CreateFileMain {
   static final String _pathFileMain = "lib/main.dart";
   static var directory = Directory('lib/');
 
-  static Future<void> create({required String name}) async {
+  static Future<void> create({
+    required String name,
+    required String namePackage,
+  }) async {
     bool isExist = await directory.exists();
     if (!isExist) return;
     final list = directory.listSync(recursive: true, followLinks: false);
@@ -20,9 +23,9 @@ class CreateFileMain {
     bool contains = list.any(
       (element) => element.path == _pathFileMain,
     );
-    
+
     if (contains) {
-      _addProvider(name: name);
+      _addProvider(name: name, namePackage: namePackage);
       //_selectedStateManeger(name);
     } else {
       _createFile(name);
@@ -32,6 +35,7 @@ class CreateFileMain {
   // quando houver novas implementações
   static Future<void> _selectedStateManeger(
     String name,
+    String namePackage,
   ) async {
     final stateManeger = typesOnStateManeger.values.map((e) => e.name).toList();
     final selection = Select(
@@ -43,6 +47,7 @@ class CreateFileMain {
       case "provider":
         _addProvider(
           name: name,
+          namePackage: namePackage,
         );
         break;
     }
@@ -58,6 +63,7 @@ class CreateFileMain {
 
   static Future<void> _addProvider({
     required String name,
+    required String namePackage,
   }) async {
     final list = directory.listSync(recursive: true, followLinks: false);
     var file = list.firstWhere(
@@ -75,8 +81,6 @@ class CreateFileMain {
     // adicionando page no switch case
     String nameProvider = ToUppCase.convert(name);
 
-    
-
     fileAsLines.insertAll(
       indexProvider + 1,
       [
@@ -88,7 +92,7 @@ class CreateFileMain {
     fileAsLines.insertAll(
       0,
       [
-        "import 'package:name/features/$name/presentation/pages/${name}_page.dart';"
+        "import 'package:$namePackage/features/$name/presentation/pages/${name}_page.dart';"
       ],
     );
 
