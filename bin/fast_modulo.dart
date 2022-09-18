@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:grinder/grinder.dart' as grind;
 import 'package:interact/interact.dart';
 
-import '../templates/file_main_generate_routes.dart';
 import '../templates/routes.dart';
 import '../templates/session/app_session.dart';
 import '../templates/session/session_model_tamplate.dart';
@@ -31,7 +30,6 @@ class FastModulo {
       prompt: 'Nome do modulo ex: login, home, cadastro_produto...',
       validator: ValidateUtils.emptyValidate,
     ).interact();
-
     await createModulo(name: nameModulo);
   }
 
@@ -46,21 +44,22 @@ class FastModulo {
 
     isGenerateRoutes = selection == opcoesGenerateRoutes.generateRoutes.index;
     String nameProject = await GetProjectName.getName();
+    nameProject = nameProject.trim();
 
     grind.run('flutter pub add provider');
     // criando estrutura clean arquiteture
     for (var item in CleanArchitecture.createInNewProject(name: 'home')) {
       Directory(item).createSync(recursive: true);
     }
-    createModulo(name: "home");
 
     if (isGenerateRoutes) {
-      CreateRoutes.addRoute(name: nameProject.trim(), nameProject: nameProject);
-      _createFileMainWithGenerateRoutes(name: nameProject.trim());
+      await CreateRoutes.addRoute(name: "home", nameProject: nameProject);
+      CreateFileMain.create(name: "home", namePackage: nameProject);
     } else {
       _createRoutes(name: nameProject.trim());
       CreateFileMain.create(name: nameProject.trim(), namePackage: nameProject);
     }
+    createModulo(name: "home");
     _createSessionApp();
     _createSessionModel();
   }
@@ -86,15 +85,6 @@ class FastModulo {
     await File(
       './lib/routes/routes.dart',
     ).writeAsString(routesTemplate);
-  }
-
-  // criando arquimo main
-  static _createFileMainWithGenerateRoutes({required String name}) async {
-    fileMainTemplateGenerateRoutes =
-        fileMainTemplateGenerateRoutes.replaceAll('{{file-name}}', name);
-    await File(
-      './lib/main.dart',
-    ).writeAsString(fileMainTemplateGenerateRoutes);
   }
 
   // criando session model

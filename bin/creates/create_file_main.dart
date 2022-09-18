@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:dart_style/dart_style.dart';
-import 'package:interact/interact.dart';
 
 import '../../templates/file_main_generate_routes.dart';
 import '../../utils/to_upp_case.dart';
@@ -25,37 +24,18 @@ class CreateFileMain {
     );
 
     if (contains) {
-      _addProvider(name: name, namePackage: namePackage);
-      //_selectedStateManeger(name);
+      await _addProvider(name: name, namePackage: namePackage);
     } else {
-      _createFile(name);
+      await _createFile(
+        nameProject: namePackage,
+      );
+      await _addProvider(name: name, namePackage: namePackage);
     }
   }
 
-  // quando houver novas implementações
-  static Future<void> _selectedStateManeger(
-    String name,
-    String namePackage,
-  ) async {
-    final stateManeger = typesOnStateManeger.values.map((e) => e.name).toList();
-    final selection = Select(
-      prompt: 'Escolha um modo',
-      options: stateManeger,
-    ).interact();
-
-    switch (stateManeger[selection]) {
-      case "provider":
-        _addProvider(
-          name: name,
-          namePackage: namePackage,
-        );
-        break;
-    }
-  }
-
-  static Future<void> _createFile(String name) async {
+  static Future<void> _createFile({required String nameProject}) async {
     fileMainTemplateGenerateRoutes =
-        fileMainTemplateGenerateRoutes.replaceAll('{{file-name}}', name);
+        fileMainTemplateGenerateRoutes.replaceAll('{{file-name}}', nameProject);
     await File(
       './lib/main.dart',
     ).writeAsString(fileMainTemplateGenerateRoutes);
@@ -92,9 +72,9 @@ class CreateFileMain {
     fileAsLines.insertAll(
       0,
       [
-        "import 'package:$namePackage/features/$name/presentation/pages/${name}_page.dart';"
+        "import 'package:$namePackage/features/$name/presentation/controller/${name}_controller.dart';"      
       ],
-    );
+    ); 
 
     String code = "";
 
