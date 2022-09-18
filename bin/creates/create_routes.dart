@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:dart_style/dart_style.dart';
 
 import '../../templates/generate_routes.dart';
+import '../../utils/to_upp_case.dart';
 
 class CreateRoutes {
   static final String _pathRoutes = "lib/routes/routes.dart";
@@ -75,7 +76,7 @@ class CreateRoutes {
   
 
     // adicionando page no switch case
-    String namePage = name.replaceFirst(name[0], name[0].toUpperCase());
+    String namePage = ToUppCase.convert(name);
     fileAsLines.insertAll(
       indexPageOnSwich + 1,
       ["case Routes.$name: return const ${namePage}Page();"],
