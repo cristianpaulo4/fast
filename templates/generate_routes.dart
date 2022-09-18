@@ -1,10 +1,10 @@
 String generateRoutesTemplate = """
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:{{file-name}}/features/home/presentation/pages/home_page.dart';
+
 
 class Routes {
-  static const String home = "home";
+ 
 
   static Route<dynamic> generatedRoute(RouteSettings routeSettings) {
     if (kIsWeb) {
@@ -24,9 +24,7 @@ class Routes {
 
   static Widget _generate(RouteSettings routeSettings) {
     Object? args = routeSettings.arguments;
-    switch (routeSettings.name) {
-      case Routes.home:
-        return const HomePage();
+    switch (routeSettings.name) {      
       default:
         return Container();
     }

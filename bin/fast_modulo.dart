@@ -3,24 +3,21 @@ import 'dart:io';
 import 'package:grinder/grinder.dart' as grind;
 import 'package:interact/interact.dart';
 
-import '../templates/constants.dart';
-import '../templates/constants_value.dart';
-import '../templates/controller.dart';
-import '../templates/factory.dart';
-import '../templates/file_main.dart';
 import '../templates/file_main_generate_routes.dart';
-import '../templates/generate_routes.dart';
-import '../templates/page.dart';
-import '../templates/repository/repository.dart';
-import '../templates/repository/repository_impl.dart';
 import '../templates/routes.dart';
-import '../templates/services/services.dart';
-import '../templates/services/services_impl.dart';
 import '../templates/session/app_session.dart';
 import '../templates/session/session_model_tamplate.dart';
 import '../utils/clean_architecture.dart';
-import '../utils/to_upp_case.dart';
 import '../utils/validate_utils.dart';
+import 'creates/create_constants.dart';
+import 'creates/create_controller.dart';
+import 'creates/create_factory.dart';
+import 'creates/create_file_main.dart';
+import 'creates/create_page.dart';
+import 'creates/create_repository.dart';
+import 'creates/create_routes.dart';
+import 'creates/create_services.dart';
+import 'creates/create_values.dart';
 import 'enum/enum_generate_routes.dart';
 
 class FastModulo {
@@ -33,14 +30,17 @@ class FastModulo {
       prompt: 'Nome do modulo ex: login, home, cadastro_produto...',
       validator: ValidateUtils.emptyValidate,
     ).interact();
-    await createFile(name: nameModulo);
+    await createModulo(name: nameModulo);
   }
 
   /// iniciando em um novo projeto
   void createNew() async {
     bool isGenerateRoutes = false;
     // selecionar tipo/modelo de rotas
-     final routes = [opcoesGenerateRoutes.routes.name, opcoesGenerateRoutes.generateRoutes.name];
+    final routes = [
+      opcoesGenerateRoutes.routes.name,
+      opcoesGenerateRoutes.generateRoutes.name
+    ];
     final selection = Select(
       prompt: 'Selecione o modelo de rotas',
       options: routes,
@@ -50,22 +50,20 @@ class FastModulo {
 
     String nameProject = await readNamePubspec();
     print(nameProject);
-    grind.run(
-      'flutter pub add provider',
-    );
+    grind.run('flutter pub add provider');
     // criando estrutura clean arquiteture
     for (var item in CleanArchitecture.createInNewProject(name: 'home')) {
       Directory(item).createSync(recursive: true);
     }
-    createFile(name: "home");
+    createModulo(name: "home");
 
     if (isGenerateRoutes) {
-      _createGenerateRoutes(name: nameProject.trim());    
-      _createFileMainWithGenerateRoutes(name: nameProject.trim()); 
-    }else{      
+      CreateRoutes.addRoute(nameProject.trim());
+      _createFileMainWithGenerateRoutes(name: nameProject.trim());
+    } else {
       _createRoutes(name: nameProject.trim());
-      _createFileMain(name: nameProject.trim());
-    }    
+      CreateFileMain.create(name: nameProject.trim());
+    }
     _createSessionApp();
     _createSessionModel();
   }
@@ -81,99 +79,16 @@ class FastModulo {
   }
 
   /// criar arquivos
-  static createFile({required String name}) async {
-    await _createPage(name: name);
-    await _createController(name: name);
-    await _createConstants(name: name);
-    await _createConstantsValues(name: name);
-    await _createRepository(name: name);
-    await _createServices(name: name);
-    await _createFactory(name: name);
-  }
-
-  static _createPage({required String name}) async {
-    pageTemplate = pageTemplate
-        .replaceAll('{{class-name}}', ToUppCase.convert(name))
-        .replaceAll('{{file-name}}', name);
-    // criando estrutura clean arquiteture
-    for (var item in CleanArchitecture.create(name: name)) {
-      Directory(item).createSync(recursive: true);
-    }
-
-    await File(
-      './lib/features/$name/presentation/pages/${name}_page.dart',
-    ).writeAsString(pageTemplate);
-  }
-
-  // criando controller
-  static _createController({required String name}) async {
-    controllerTemplate = controllerTemplate.replaceAll(
-        '{{class-name}}', ToUppCase.convert(name));
-    await File(
-      './lib/features/$name/presentation/controller/${name}_controller.dart',
-    ).writeAsString(controllerTemplate);
-  }
-
-  // criando constants
-  static _createConstants({required String name}) async {
-    constantsTemplate =
-        constantsTemplate.replaceAll('{{class-name}}', ToUppCase.convert(name));
-    await File(
-      './lib/features/$name/presentation/constants/${name}_constants.dart',
-    ).writeAsString(constantsTemplate);
-  }
-
-  // criando constants
-  static _createConstantsValues({required String name}) async {
-    constantsValueTemplate = constantsValueTemplate.replaceAll(
-        '{{class-name}}', ToUppCase.convert(name));
-    await File(
-      './lib/features/$name/presentation/constants/${name}_values.dart',
-    ).writeAsString(constantsValueTemplate);
-  }
-
-  // criando repository
-  static _createRepository({required String name}) async {
-    repositoryTemplate = repositoryTemplate.replaceAll(
-        '{{class-name}}', ToUppCase.convert(name));
-    await File(
-      './lib/features/$name/domain/repositories/${name}_repository.dart',
-    ).writeAsString(repositoryTemplate);
-
-    // criando a implementação
-    repositoryImplTemplate = repositoryImplTemplate
-        .replaceAll('{{class-name}}', ToUppCase.convert(name))
-        .replaceAll('{{file-name}}', name);
-    await File(
-      './lib/features/$name/data/repositories/${name}_impl_repository.dart',
-    ).writeAsString(repositoryImplTemplate);
-  }
-
-  // criando services
-  static _createServices({required String name}) async {
-    servicesTemplate =
-        servicesTemplate.replaceAll('{{class-name}}', ToUppCase.convert(name));
-    await File(
-      './lib/features/$name/domain/services/${name}_services.dart',
-    ).writeAsString(servicesTemplate);
-
-    servicesImplTemplate = servicesImplTemplate
-        .replaceAll('{{class-name}}', ToUppCase.convert(name))
-        .replaceAll('{{file-name}}', name);
-
-    await File(
-      './lib/features/$name/data/services/${name}_impl_services.dart',
-    ).writeAsString(servicesImplTemplate);
-  }
-
-  // criando factory
-  static _createFactory({required String name}) async {
-    factoryTemplate = factoryTemplate
-        .replaceAll('{{class-name}}', ToUppCase.convert(name))
-        .replaceAll('{{file-name}}', name);
-    await File(
-      './lib/factory/${name}_factory.dart',
-    ).writeAsString(factoryTemplate);
+  static createModulo({required String name}) async {
+    await CreatePage.createPage(name: name);
+    await CreateController.createController(name: name);
+    await CreateConstants.createConstants(name: name);
+    await CreateValues.createConstantsValues(name: name);
+    await CreateRepository.createRepository(name: name);
+    await CreateServices.createServices(name: name);
+    await CreateFactory.createFactory(name: name);
+    await CreateRoutes.addRoute(name);
+    await CreateFileMain.create(name: name);
   }
 
   // criando routes
@@ -184,26 +99,10 @@ class FastModulo {
     ).writeAsString(routesTemplate);
   }
 
-  // criando routes
-  static _createGenerateRoutes({required String name}) async {
-    generateRoutesTemplate =
-        generateRoutesTemplate.replaceAll('{{file-name}}', name);
-    await File(
-      './lib/routes/routes.dart',
-    ).writeAsString(generateRoutesTemplate);
-  }
-
-  // criando arquimo main
-  static _createFileMain({required String name}) async {
-    fileMainTemplate = fileMainTemplate.replaceAll('{{file-name}}', name);
-    await File(
-      './lib/main.dart',
-    ).writeAsString(fileMainTemplate);
-  }
-
   // criando arquimo main
   static _createFileMainWithGenerateRoutes({required String name}) async {
-    fileMainTemplateGenerateRoutes = fileMainTemplateGenerateRoutes.replaceAll('{{file-name}}', name);
+    fileMainTemplateGenerateRoutes =
+        fileMainTemplateGenerateRoutes.replaceAll('{{file-name}}', name);
     await File(
       './lib/main.dart',
     ).writeAsString(fileMainTemplateGenerateRoutes);

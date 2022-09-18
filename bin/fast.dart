@@ -1,19 +1,18 @@
-import 'package:args/args.dart';
-import 'dart:io';
 
 import 'package:interact/interact.dart';
+
 import 'fast_modulo.dart';
 
 enum opcoes { Novo_Projeto, Modulo }
 
 void main(List<String> arguments) {
-  final languages = [opcoes.Novo_Projeto.name, opcoes.Modulo.name];
+  final listModos = opcoes.values.map((e) => e.name).toList();
   final selection = Select(
     prompt: 'Fast CLI - Selecione uma opção.',
-    options: languages,
+    options: listModos,
   ).interact();
 
-  switch (languages[selection]) {
+  switch (listModos[selection]) {
     case "Novo_Projeto":
       FastModulo().createNew();
       break;
