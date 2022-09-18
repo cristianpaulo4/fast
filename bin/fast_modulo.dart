@@ -3,9 +3,6 @@ import 'dart:io';
 import 'package:grinder/grinder.dart' as grind;
 import 'package:interact/interact.dart';
 
-import '../templates/routes.dart';
-import '../templates/session/app_session.dart';
-import '../templates/session/session_model_tamplate.dart';
 import '../utils/clean_architecture.dart';
 import '../utils/get_project_name.dart';
 import '../utils/validate_utils.dart';
@@ -17,6 +14,7 @@ import 'creates/create_page.dart';
 import 'creates/create_repository.dart';
 import 'creates/create_routes.dart';
 import 'creates/create_services.dart';
+import 'creates/create_session.dart';
 import 'creates/create_values.dart';
 
 class FastModulo {
@@ -44,12 +42,11 @@ class FastModulo {
       Directory(item).createSync(recursive: true);
     }
     createModulo(name: "home", nameProject: nameProject);
-    _createSessionApp();
-    _createSessionModel();
+    CreateSession.create();
   }
 
   /// criar arquivos
-  static createModulo({
+  static Future<void> createModulo({
     required String name,
     required String nameProject,
   }) async {
@@ -62,27 +59,5 @@ class FastModulo {
     await CreateFactory.createFactory(name: name);
     await CreateRoutes.addRoute(name: name, nameProject: nameProject);
     await CreateFileMain.create(name: name, namePackage: nameProject);
-  }
-
-  // criando routes
-  static _createRoutes({required String name}) async {
-    routesTemplate = routesTemplate.replaceAll('{{file-name}}', name);
-    await File(
-      './lib/routes/routes.dart',
-    ).writeAsString(routesTemplate);
-  }
-
-  // criando session model
-  static _createSessionModel() async {
-    await File(
-      './lib/shared/session/session_model/session_model.dart',
-    ).writeAsString(session_model_template);
-  }
-
-  // criando session app
-  static _createSessionApp() async {
-    await File(
-      './lib/shared/session/app_session.dart',
-    ).writeAsString(app_session);
   }
 }

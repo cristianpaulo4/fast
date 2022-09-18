@@ -61,9 +61,6 @@ class CleanArchitecture {
      // routes
     String routes = "./lib/routes";
 
-   
-
-
     return [      
       routes,
       shared,
