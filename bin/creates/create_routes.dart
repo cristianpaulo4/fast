@@ -22,19 +22,19 @@ class CreateRoutes {
       (element) => element.path == _pathRoutes,
     );
 
-    if (contains) {
-      _addNewRoute(
-        name: name,
-        directory: current,
-        nameProject: nameProject,
-      );
-    } else {
-      _createRoutes(name: nameProject);
+    if (!contains) {
+      await _createRoutes(name: nameProject);
     }
+
+    await _addNewRoute(
+      name: name,
+      directory: current,
+      nameProject: nameProject,
+    );
   }
 
   // criando routes
-  static _createRoutes({required String name}) async {
+  static Future<void> _createRoutes({required String name}) async {
     generateRoutesTemplate = generateRoutesTemplate.replaceAll(
       '{{file-name}}',
       name,

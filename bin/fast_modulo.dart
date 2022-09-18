@@ -31,6 +31,7 @@ class FastModulo {
       prompt: 'Nome do modulo ex: login, home, cadastro_produto...',
       validator: ValidateUtils.emptyValidate,
     ).interact();
+
     await createModulo(name: nameModulo);
   }
 
@@ -75,14 +76,8 @@ class FastModulo {
     await CreateRepository.createRepository(name: name);
     await CreateServices.createServices(name: name);
     await CreateFactory.createFactory(name: name);
-    await CreateRoutes.addRoute(
-      name: name,
-      nameProject: nameProject,
-    );
-    await CreateFileMain.create(
-      name: name,
-      namePackage: nameProject,
-    );
+    await CreateRoutes.addRoute(name: name, nameProject: nameProject);
+    await CreateFileMain.create(name: name, namePackage: nameProject);
   }
 
   // criando routes
