@@ -1,4 +1,3 @@
-
 import 'package:interact/interact.dart';
 
 import 'fast_modulo.dart';

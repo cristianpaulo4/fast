@@ -36,6 +36,9 @@ class FastModulo {
     String nameProject = await GetProjectName.getName();
     nameProject = nameProject.trim();
 
+    // deletar arquivos base
+    File('lib/main.dart').delete();
+
     grind.run('flutter pub add provider');
     // criando estrutura clean arquiteture
     for (var item in CleanArchitecture.createInNewProject(name: 'home')) {
