@@ -57,7 +57,6 @@ class CreateFileMain {
       (element) => element.contains('providers: ['),
     );
 
-    print(indexProvider);
     // adicionando page no switch case
     String nameProvider = ToUppCase.convert(name);
 
@@ -72,9 +71,9 @@ class CreateFileMain {
     fileAsLines.insertAll(
       0,
       [
-        "import 'package:$namePackage/features/$name/presentation/controller/${name}_controller.dart';"      
+        "import 'package:$namePackage/features/$name/presentation/controller/${name}_controller.dart';"
       ],
-    ); 
+    );
 
     String code = "";
 
