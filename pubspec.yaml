@@ -1,6 +1,6 @@
 name: fast
 description: A sample command-line application.
-version: 1.2.1
+version: 1.2.2
 # homepage: https://www.example.com
 executables: 
   fast: fast 
