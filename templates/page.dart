@@ -18,8 +18,11 @@ class _{{class-name}}PageState extends State<{{class-name}}Page> {
   @override
   void initState() {
     controller = context.read<{{class-name}}Controller>();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _init());
     super.initState();
   }
+
+  void _init() {}
 
   @override
   Widget build(BuildContext context) {
