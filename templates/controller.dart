@@ -1,11 +1,11 @@
 String controllerTemplate = """
-import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
 
 class {{class-name}}Controller extends ChangeNotifier {
   bool isProgress = false;
 
   void update() {
-    notifyListeners();
+    WidgetsBinding.instance.addPostFrameCallback((_) => notifyListeners());    
   }  
 
   void startProgress(){
