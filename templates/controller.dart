@@ -5,7 +5,7 @@ class {{class-name}}Controller extends ChangeNotifier {
   bool isProgress = false;
 
   void update() {
-    WidgetsBinding.instance.addPostFrameCallback((_) => notifyListeners());    
+    notifyListeners();    
   }  
 
   void startProgress(){

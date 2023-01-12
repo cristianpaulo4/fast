@@ -10,7 +10,6 @@ class CleanArchitecture {
     /// camada de domain
     String domain = "./lib/features/$name/domain";
     String datasourcesDomain = "./lib/features/$name/domain/datasources";
-    String entities = "./lib/features/$name/domain/entities";
     String repositoriesDomain = "./lib/features/$name/domain/repositories";
     String servicesDomain = "./lib/features/$name/domain/services";
     String usecase = "./lib/features/$name/domain/usecases";
@@ -26,30 +25,33 @@ class CleanArchitecture {
 
     //factory
     String factory = "./lib/factory";
-    
-   
 
+    //core
+    String coreEntities = "./lib/core/entities";
+    String coreInfra = "./lib/core/infra";
 
     return [
-      data,      
+      data,
       repositories,
       services,
-      domain,      
-      entities, 
-      repositoriesDomain, 
-      usecase, 
-      presentation, 
-      constants, 
-      controller, 
-      page, 
-      widgets, 
+      domain,
+      repositoriesDomain,
+      usecase,
+      presentation,
+      constants,
+      controller,
+      page,
+      widgets,
       utils,
       servicesDomain,
-      factory,   
+      factory,
       model,
+      coreEntities,
+      coreInfra,
     ];
   }
-  static List<String> createInNewProject({required String name}) {   
+
+  static List<String> createInNewProject({required String name}) {
     //shared
     String shared = "./lib/shared";
     //shared
@@ -58,10 +60,10 @@ class CleanArchitecture {
     String sharedWidgets = "./lib/shared/widgets";
     //shared
     String sharedSection = "./lib/shared/session/session_model";
-     // routes
+    // routes
     String routes = "./lib/routes";
 
-    return [      
+    return [
       routes,
       shared,
       sharedConstants,
