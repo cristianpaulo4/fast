@@ -1,5 +1,5 @@
 String app_session = """
-import 'session_model/session_model.dart';
+
 
 class AppSession {
   static AppSession? _instance;
@@ -11,27 +11,21 @@ class AppSession {
     return _instance!;
   }
 
-  Future<bool> save({required SessionModel sessionModel}) async {
+  Future<bool> save() async {
     // aplicar regra de negocio
     return true;
   }
 
-  Future<SessionModel> get() async {
-     // aplicar regra de negocio
-    SessionModel sessionModel = SessionModel();
-   
-    return sessionModel;
+  get() async {
+     // aplicar regra de negocio   
+    return null;
   }
 
   Future<bool> destroy() async {
     // aplicar regra de negocio
     return true;
   }
-
-  Future<bool> isLogged() async {
-    // aplicar regra de negocio
-    return true;
-  }
+ 
 }
 
 """;
