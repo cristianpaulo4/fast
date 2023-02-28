@@ -6,16 +6,14 @@ import '../../utils/to_upp_case.dart';
 import '../enum/enum_design_system.dart';
 
 class CreatePage {
-  static Future<void> createPage(
-      {required String name, required DesignSystem designSystem}) async {
-    switch (designSystem) {
-      case DesignSystem.material:
-        _createPageMaterial(name: name);
-        break;
-      case DesignSystem.fluente:
-        _createPageFluente(name: name);
-        break;
-      default:
+  static Future<void> createPage({
+    required String name,
+    required DesignSystem designSystem,
+  }) async {
+    if (designSystem == DesignSystem.fluente) {
+      _createPageFluente(name: name);
+    } else {
+      _createPageMaterial(name: name);
     }
   }
 
