@@ -55,7 +55,7 @@ class FastModulo {
       Directory(item).createSync(recursive: true);
     }
     if (designSystem == DesignSystem.fluente) {
-      createModulo(
+      await createModulo(
         name: "base",
         nameProject: nameProject,
         designSystem: designSystem,
