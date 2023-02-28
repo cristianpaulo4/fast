@@ -56,7 +56,7 @@ class FastModulo {
     createModulo(
       name: "home",
       nameProject: nameProject,
-      designSystem: DesignSystem.material,
+      designSystem: designSystem,
     );
     CreateSession.create();
   }
