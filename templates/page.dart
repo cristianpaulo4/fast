@@ -100,8 +100,11 @@ class _{{class-name}}PageState extends State<{{class-name}}Page> {
    List<NavigationPaneItem> get originalItems => [       
         PaneItem(
           icon: const Icon(FluentIcons.settings),
-          title: const Text('Painel de controle'),
-          body: const HomePage(),
+          title: const Text('Firt Page'),
+          body: const ScaffoldPage(
+            header: Text("Firt Page"),
+          ),
+          
         ),
       ];
   
