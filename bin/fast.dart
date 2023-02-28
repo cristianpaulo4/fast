@@ -1,5 +1,6 @@
 import 'package:interact/interact.dart';
 
+import '../utils/remove_native_bar_windows.dart';
 import 'enum/enum_design_system.dart';
 import 'fast_modulo.dart';
 
@@ -32,6 +33,7 @@ void main(List<String> arguments) {
       FastModulo.initModulo(designSystem: DesignSystem.fluente);
     } else {
       FastModulo.createNewProject(designSystem: DesignSystem.fluente);
+      RemoveNativeBarWindows.update();
     }
   }
 }

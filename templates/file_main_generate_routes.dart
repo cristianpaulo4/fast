@@ -59,6 +59,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(),
       initialRoute: Routes.base,
       onGenerateRoute: Routes.generatedRoute,
+      debugShowCheckedModeBanner: false,
     );
   }
 }
