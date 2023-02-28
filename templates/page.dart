@@ -118,8 +118,7 @@ class _{{class-name}}PageState extends State<{{class-name}}Page> {
         ),
       ),
 
-      pane: NavigationPane(
-          indicator: const EndNavigationIndicator(),
+      pane: NavigationPane(        
           selected: topIndex,
           size: const NavigationPaneSize(openMaxWidth: 230),
           onChanged: (index) => setState(() => topIndex = index),

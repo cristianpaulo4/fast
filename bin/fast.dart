@@ -25,13 +25,13 @@ void main(List<String> arguments) {
     if (listModos[selection] == Opcoes.Modulo.name) {
       FastModulo.initModulo(designSystem: DesignSystem.material);
     } else {
-      FastModulo().createNewProject(designSystem: DesignSystem.material);
+      FastModulo.createNewProject(designSystem: DesignSystem.material);
     }
   } else {
     if (listModos[selection] == Opcoes.Modulo.name) {
       FastModulo.initModulo(designSystem: DesignSystem.fluente);
     } else {
-      FastModulo().createNewProject(designSystem: DesignSystem.fluente);
+      FastModulo.createNewProject(designSystem: DesignSystem.fluente);
     }
   }
 }

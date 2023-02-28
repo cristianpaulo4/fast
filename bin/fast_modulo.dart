@@ -37,24 +37,22 @@ class FastModulo {
   }
 
   /// iniciando em um novo projeto
-  void createNewProject({required DesignSystem designSystem}) async {
+  static void createNewProject({required DesignSystem designSystem}) async {
     String nameProject = await GetProjectName.getName();
     nameProject = nameProject.trim();
 
     // deletar arquivos base
     File('lib/main.dart').delete();
 
-    grind.run('flutter pub add provider');
-    if (designSystem == DesignSystem.fluente) {
-      grind.run('flutter pub add fluent_ui');
-      grind.run('flutter pub add bitsdojo_window');
-    }
-
     // criando estrutura clean arquiteture
     for (var item in CleanArchitecture.createInNewProject()) {
       Directory(item).createSync(recursive: true);
     }
+
+    grind.run('flutter pub add provider');
     if (designSystem == DesignSystem.fluente) {
+      grind.run('flutter pub add fluent_ui');
+      grind.run('flutter pub add bitsdojo_window');
       await createModulo(
         name: "base",
         nameProject: nameProject,
@@ -62,12 +60,15 @@ class FastModulo {
         isBasePage: true,
       );
     }
-    createModulo(
+
+    await createModulo(
       name: "home",
       nameProject: nameProject,
       designSystem: designSystem,
+      isBasePage: false,
     );
-    CreateSession.create();
+
+    await CreateSession.create();
   }
 
   /// criar arquivos
