@@ -61,13 +61,12 @@ class FastModulo {
         designSystem: designSystem,
         isBasePage: true,
       );
-    } else {
-      createModulo(
-        name: "home",
-        nameProject: nameProject,
-        designSystem: designSystem,
-      );
     }
+    createModulo(
+      name: "home",
+      nameProject: nameProject,
+      designSystem: designSystem,
+    );
     CreateSession.create();
   }
 

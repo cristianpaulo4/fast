@@ -124,7 +124,7 @@ class _{{class-name}}PageState extends State<{{class-name}}Page> {
           size: const NavigationPaneSize(openMaxWidth: 230),
           onChanged: (index) => setState(() => topIndex = index),
           header: PageHeader(
-            title: Text("Base),
+            title: Text("Base"),
           ),
           items: originalItems,        
         ),
