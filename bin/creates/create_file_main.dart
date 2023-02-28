@@ -4,16 +4,19 @@ import 'package:dart_style/dart_style.dart';
 
 import '../../templates/file_main_generate_routes.dart';
 import '../../utils/to_upp_case.dart';
+import '../enum/enum_design_system.dart';
 
 enum typesOnStateManeger { provider }
 
 class CreateFileMain {
-  static final String _pathFileMain = "lib/main.dart";
   static var directory = Directory('lib/');
+
+  static final String _pathFileMain = "lib/main.dart";
 
   static Future<void> create({
     required String name,
     required String namePackage,
+    required DesignSystem designSystem,
   }) async {
     bool isExist = await directory.exists();
     if (!isExist) return;
@@ -26,19 +29,40 @@ class CreateFileMain {
     if (contains) {
       await _addProvider(name: name, namePackage: namePackage);
     } else {
-      await _createFile(
-        nameProject: namePackage,
-      );
+      switch (designSystem) {
+        case DesignSystem.material:
+          await _createFileMainMaterial(nameProject: namePackage);
+          break;
+        case DesignSystem.fluente:
+          await _createFileMainFluente(
+            nameProject: namePackage,
+          );
+          break;
+        default:
+      }
+
       await _addProvider(name: name, namePackage: namePackage);
     }
   }
 
-  static Future<void> _createFile({required String nameProject}) async {
+  static Future<void> _createFileMainMaterial({
+    required String nameProject,
+  }) async {
     fileMainTemplateGenerateRoutes =
         fileMainTemplateGenerateRoutes.replaceAll('{{file-name}}', nameProject);
     await File(
       './lib/main.dart',
     ).writeAsString(fileMainTemplateGenerateRoutes);
+  }
+
+  static Future<void> _createFileMainFluente({
+    required String nameProject,
+  }) async {
+    fileMainTemplateGenerateRoutesFluent = fileMainTemplateGenerateRoutesFluent
+        .replaceAll('{{file-name}}', nameProject);
+    await File(
+      './lib/main.dart',
+    ).writeAsString(fileMainTemplateGenerateRoutesFluent);
   }
 
   static Future<void> _addProvider({

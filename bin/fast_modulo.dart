@@ -16,10 +16,11 @@ import 'creates/create_routes.dart';
 import 'creates/create_services.dart';
 import 'creates/create_session.dart';
 import 'creates/create_values.dart';
+import 'enum/enum_design_system.dart';
 
 class FastModulo {
   /// iniciando modulo
-  static void initModulo() async {
+  static void initModulo({required DesignSystem designSystem}) async {
     String? nameModulo;
     String nameProject = await GetProjectName.getName();
     print("Digite o nome do modulo:");
@@ -28,11 +29,15 @@ class FastModulo {
       prompt: 'Nome do modulo ex: login, home, cadastro_produto...',
       validator: ValidateUtils.emptyValidate,
     ).interact();
-    await createModulo(name: nameModulo, nameProject: nameProject.trim());
+    await createModulo(
+      name: nameModulo,
+      nameProject: nameProject.trim(),
+      designSystem: designSystem,
+    );
   }
 
   /// iniciando em um novo projeto
-  void createNew() async {
+  void createNewProject({required DesignSystem designSystem}) async {
     String nameProject = await GetProjectName.getName();
     nameProject = nameProject.trim();
 
@@ -40,11 +45,19 @@ class FastModulo {
     File('lib/main.dart').delete();
 
     grind.run('flutter pub add provider');
+    if (designSystem == DesignSystem.fluente) {
+      grind.run('flutter pub add fluent_ui');
+    }
+
     // criando estrutura clean arquiteture
-    for (var item in CleanArchitecture.createInNewProject(name: 'home')) {
+    for (var item in CleanArchitecture.createInNewProject()) {
       Directory(item).createSync(recursive: true);
     }
-    createModulo(name: "home", nameProject: nameProject);
+    createModulo(
+      name: "home",
+      nameProject: nameProject,
+      designSystem: DesignSystem.material,
+    );
     CreateSession.create();
   }
 
@@ -52,8 +65,13 @@ class FastModulo {
   static Future<void> createModulo({
     required String name,
     required String nameProject,
+    required DesignSystem designSystem,
   }) async {
-    await CreatePage.createPage(name: name);
+    await CreatePage.createPage(
+      name: name,
+      designSystem: designSystem,
+    );
+
     await CreateController.createController(name: name);
     await CreateConstants.createConstants(name: name);
     await CreateValues.createConstantsValues(name: name);
@@ -61,6 +79,10 @@ class FastModulo {
     await CreateServices.createServices(name: name);
     await CreateFactory.createFactory(name: name);
     await CreateRoutes.addRoute(name: name, nameProject: nameProject);
-    await CreateFileMain.create(name: name, namePackage: nameProject);
+    await CreateFileMain.create(
+      name: name,
+      namePackage: nameProject,
+      designSystem: designSystem,
+    );
   }
 }

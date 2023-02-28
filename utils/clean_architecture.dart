@@ -51,7 +51,7 @@ class CleanArchitecture {
     ];
   }
 
-  static List<String> createInNewProject({required String name}) {
+  static List<String> createInNewProject() {
     //shared
     String shared = "./lib/shared";
     //shared
