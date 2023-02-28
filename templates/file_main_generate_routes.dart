@@ -33,6 +33,7 @@ class MyApp extends StatelessWidget {
 
 """;
 String fileMainTemplateGenerateRoutesFluent = """
+import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:provider/provider.dart';
 import 'package:{{file-name}}/routes/routes.dart';
@@ -47,6 +48,13 @@ void main() {
       child: const MyApp(),
     ),
   );
+  doWhenWindowReady(() {
+    const initialSize = Size(1200, 720);
+    appWindow.minSize = initialSize;
+    appWindow.size = initialSize;
+    appWindow.alignment = Alignment.center;
+    appWindow.show();
+  });
 }
 
 class MyApp extends StatelessWidget {
