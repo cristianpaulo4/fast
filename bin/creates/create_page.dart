@@ -34,7 +34,7 @@ class CreatePage {
   }
 
   static Future<void> _createPageFluente({required String name}) async {
-    pageTemplate = pageTemplate
+    pageTemplateFluente = pageTemplateFluente
         .replaceAll('{{class-name}}', ToUppCase.convert(name))
         .replaceAll('{{file-name}}', name);
     // criando estrutura clean arquiteture
@@ -44,6 +44,6 @@ class CreatePage {
 
     await File(
       './lib/features/$name/presentation/pages/${name}_page.dart',
-    ).writeAsString(pageTemplate);
+    ).writeAsString(pageTemplateFluente);
   }
 }
