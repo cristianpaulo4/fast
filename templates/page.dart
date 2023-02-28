@@ -64,7 +64,11 @@ class _{{class-name}}PageState extends State<{{class-name}}Page> {
 
   @override
   Widget build(BuildContext context) {
-    return ScaffoldPage();
+    return ScaffoldPage(
+      header: PageHeader(
+        title: Text('{{class-name}}'),
+      ),
+    );
   }
 }
 """;
@@ -102,7 +106,7 @@ class _{{class-name}}PageState extends State<{{class-name}}Page> {
           icon: const Icon(FluentIcons.settings),
           title: const Text('Firt Page'),
           body: const ScaffoldPage(
-            header: Text("Firt Page"),
+            header: Text("{{class-name}}"),
           ),
           
         ),
