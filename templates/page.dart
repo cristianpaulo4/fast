@@ -37,7 +37,6 @@ class _{{class-name}}PageState extends State<{{class-name}}Page> {
 """;
 
 String pageTemplateFluente = """
-import 'package:flutter/material.dart';
 import '../controller/{{file-name}}_controller.dart';
 import '../constants/{{file-name}}_constants.dart';
 import 'package:provider/provider.dart';
@@ -64,12 +63,7 @@ class _{{class-name}}PageState extends State<{{class-name}}Page> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text({{class-name}}Constants.title),
-      ),
-      body: Container(),
-    );
+    return const ScaffoldPage();
   }
 }
 """;
