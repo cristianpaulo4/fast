@@ -20,19 +20,25 @@ import 'enum/enum_design_system.dart';
 
 class FastModulo {
   /// iniciando modulo
-  static void initModulo({required DesignSystem designSystem}) async {
+  static void initModulo(
+      {required DesignSystem designSystem, bool firtModulo = false}) async {
     String? nameModulo;
     String nameProject = await GetProjectName.getName();
-    print("Digite o nome do modulo:");
+    if (!firtModulo) {
+      print("Digite o nome do modulo:");
+      nameModulo = Input(
+        prompt: 'Nome do modulo ex: login, home, cadastro_produto...',
+        validator: ValidateUtils.emptyValidate,
+      ).interact();
+    } else {
+      nameModulo = "home";
+    }
 
-    nameModulo = Input(
-      prompt: 'Nome do modulo ex: login, home, cadastro_produto...',
-      validator: ValidateUtils.emptyValidate,
-    ).interact();
     await createModulo(
       name: nameModulo,
       nameProject: nameProject.trim(),
       designSystem: designSystem,
+      isBasePage: false,
     );
   }
 
@@ -49,24 +55,27 @@ class FastModulo {
       Directory(item).createSync(recursive: true);
     }
 
-    grind.run('flutter pub add provider');
     if (designSystem == DesignSystem.fluente) {
-      grind.run('flutter pub add fluent_ui');
-      grind.run('flutter pub add bitsdojo_window');
       await createModulo(
-        name: "base",
+        name: 'base',
         nameProject: nameProject,
         designSystem: designSystem,
         isBasePage: true,
       );
+    } else {
+      await createModulo(
+        name: 'home',
+        nameProject: nameProject,
+        designSystem: designSystem,
+      );
     }
-
-    await createModulo(
-      name: "home",
-      nameProject: nameProject,
-      designSystem: designSystem,
-      isBasePage: false,
-    );
+    print("⏰ Adicionando dependencias");
+    if (designSystem == DesignSystem.fluente) {
+      grind.run('flutter pub add fluent_ui bitsdojo_window provider');
+    } else {
+      grind.run('flutter pub add provider');
+    }
+    print("✅ Finalizado");
 
     await CreateSession.create();
   }
@@ -96,5 +105,6 @@ class FastModulo {
       namePackage: nameProject,
       designSystem: designSystem,
     );
+    print("✅ Criando modulo $name");
   }
 }
