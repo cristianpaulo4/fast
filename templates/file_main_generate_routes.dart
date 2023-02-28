@@ -57,7 +57,7 @@ class MyApp extends StatelessWidget {
     return FluentApp(
       title: 'Flutter Demo',
       theme: FluentThemeData(),
-      initialRoute: Routes.home,
+      initialRoute: Routes.base,
       onGenerateRoute: Routes.generatedRoute,
     );
   }
