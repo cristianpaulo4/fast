@@ -9,7 +9,13 @@ class CreatePage {
   static Future<void> createPage({
     required String name,
     required DesignSystem designSystem,
+    required bool isBasePage,
   }) async {
+    if (isBasePage) {
+      _createPageBaseFluente(name: name);
+      return;
+    }
+
     if (designSystem == DesignSystem.fluente) {
       _createPageFluente(name: name);
     } else {
@@ -43,5 +49,19 @@ class CreatePage {
     await File(
       './lib/features/$name/presentation/pages/${name}_page.dart',
     ).writeAsString(pageTemplateFluente);
+  }
+
+  static Future<void> _createPageBaseFluente({required String name}) async {
+    pageBaseTemplateFluente = pageBaseTemplateFluente
+        .replaceAll('{{class-name}}', ToUppCase.convert(name))
+        .replaceAll('{{file-name}}', name);
+    // criando estrutura clean arquiteture
+    for (var item in CleanArchitecture.create(name: name)) {
+      Directory(item).createSync(recursive: true);
+    }
+
+    await File(
+      './lib/features/$name/presentation/pages/${name}_page.dart',
+    ).writeAsString(pageBaseTemplateFluente);
   }
 }

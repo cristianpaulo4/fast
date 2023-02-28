@@ -68,3 +68,119 @@ class _{{class-name}}PageState extends State<{{class-name}}Page> {
   }
 }
 """;
+
+String pageBaseTemplateFluente = """
+import 'package:fluent_ui/fluent_ui.dart';
+import '../controller/{{file-name}}_controller.dart';
+import '../constants/{{file-name}}_constants.dart';
+import 'package:provider/provider.dart';
+import 'package:bitsdojo_window/bitsdojo_window.dart';
+
+
+class {{class-name}}Page extends StatefulWidget {
+  const {{class-name}}Page({Key? key}) : super(key: key);
+
+  @override
+  State<{{class-name}}Page> createState() => _{{class-name}}PageState();
+}
+
+class _{{class-name}}PageState extends State<{{class-name}}Page> {
+  late {{class-name}}Controller controller;
+  int topIndex = 0;
+
+  @override
+  void initState() {
+    controller = context.read<{{class-name}}Controller>();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _init());
+    super.initState();
+  }
+
+  void _init() {}
+
+   List<NavigationPaneItem> get originalItems => [       
+        PaneItem(
+          icon: const Icon(FluentIcons.settings),
+          title: const Text('Painel de controle'),
+          body: const HomePage(),
+        ),
+      ];
+  
+
+  @override
+  Widget build(BuildContext context) {
+    return NavigationView(
+      appBar: NavigationAppBar(
+        title: const Text("Base"),
+        actions: WindowTitleBarBox(
+          child: Row(
+            children: [Expanded(child: MoveWindow()), const WindowButtons()],
+          ),
+        ),
+      ),
+
+      pane: NavigationPane(
+          indicator: const EndNavigationIndicator(),
+          selected: topIndex,
+          size: const NavigationPaneSize(openMaxWidth: 230),
+          onChanged: (index) => setState(() => topIndex = index),
+          header: PageHeader(
+            title: Text("Base),
+          ),
+          items: originalItems,        
+        ),
+
+
+    );
+  }
+}
+
+
+final buttonColors = WindowButtonColors(
+  iconNormal: const Color(0xFF805306),
+  mouseOver: const Color(0xFFF6A00C),
+  mouseDown: const Color(0xFF805306),
+  iconMouseOver: const Color(0xFF805306),
+  iconMouseDown: const Color(0xFFFFD500),
+);
+
+final closeButtonColors = WindowButtonColors(
+  mouseOver: const Color(0xFFD32F2F),
+  mouseDown: const Color(0xFFB71C1C),
+  iconNormal: const Color(0xFF805306),
+  iconMouseOver: Colors.white,
+);
+
+class WindowButtons extends StatefulWidget {
+  const WindowButtons({Key? key}) : super(key: key);
+
+  @override
+  _WindowButtonsState createState() => _WindowButtonsState();
+}
+
+class _WindowButtonsState extends State<WindowButtons> {
+  void maximizeOrRestore() {
+    setState(() {
+      appWindow.maximizeOrRestore();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        MinimizeWindowButton(colors: buttonColors),
+        appWindow.isMaximized
+            ? RestoreWindowButton(
+                colors: buttonColors,
+                onPressed: maximizeOrRestore,
+              )
+            : MaximizeWindowButton(
+                colors: buttonColors,
+                onPressed: maximizeOrRestore,
+              ),
+        CloseWindowButton(colors: closeButtonColors),
+      ],
+    );
+  }
+}
+""";

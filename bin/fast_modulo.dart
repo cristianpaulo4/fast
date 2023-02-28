@@ -47,17 +47,27 @@ class FastModulo {
     grind.run('flutter pub add provider');
     if (designSystem == DesignSystem.fluente) {
       grind.run('flutter pub add fluent_ui');
+      grind.run('flutter pub add bitsdojo_window');
     }
 
     // criando estrutura clean arquiteture
     for (var item in CleanArchitecture.createInNewProject()) {
       Directory(item).createSync(recursive: true);
     }
-    createModulo(
-      name: "home",
-      nameProject: nameProject,
-      designSystem: designSystem,
-    );
+    if (designSystem == DesignSystem.fluente) {
+      createModulo(
+        name: "base",
+        nameProject: nameProject,
+        designSystem: designSystem,
+        isBasePage: true,
+      );
+    } else {
+      createModulo(
+        name: "home",
+        nameProject: nameProject,
+        designSystem: designSystem,
+      );
+    }
     CreateSession.create();
   }
 
@@ -66,10 +76,12 @@ class FastModulo {
     required String name,
     required String nameProject,
     required DesignSystem designSystem,
+    bool isBasePage = false,
   }) async {
     await CreatePage.createPage(
       name: name,
       designSystem: designSystem,
+      isBasePage: isBasePage,
     );
 
     await CreateController.createController(name: name);
