@@ -71,7 +71,9 @@ class FastModulo {
     }
     print("⏰ Adicionando dependencias");
     if (designSystem == DesignSystem.fluente) {
-      grind.run('flutter pub add fluent_ui bitsdojo_window provider');
+      grind.run(
+        'flutter pub add fluent_ui bitsdojo_window provider breadcrumb_fluent_ui',
+      );
     } else {
       grind.run('flutter pub add provider');
     }

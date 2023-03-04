@@ -37,9 +37,11 @@ import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:provider/provider.dart';
 import 'package:{{file-name}}/routes/routes.dart';
+import 'package:breadcrumb_fluent_ui/breadcrumb.dart';
 
 
 void main() {  
+  BreadcrumController.instance.settings(Routes.generatedRoute);
   runApp(
     MultiProvider(
       providers: [
@@ -64,7 +66,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return FluentApp(
       title: 'Flutter Demo',
-      theme: ThemeData(),
+      theme: FluentThemeData(),
       initialRoute: Routes.base,
       onGenerateRoute: Routes.generatedRoute,
       debugShowCheckedModeBanner: false,

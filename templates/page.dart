@@ -37,10 +37,13 @@ class _{{class-name}}PageState extends State<{{class-name}}Page> {
 """;
 
 String pageTemplateFluente = """
+import '../../../../routes/routes.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import '../controller/{{file-name}}_controller.dart';
 import '../constants/{{file-name}}_constants.dart';
 import 'package:provider/provider.dart';
+import 'package:breadcrumb_fluent_ui/breadcrumb.dart';
+
 
 
 class {{class-name}}Page extends StatefulWidget {
@@ -57,6 +60,12 @@ class _{{class-name}}PageState extends State<{{class-name}}Page> {
   void initState() {
     controller = context.read<{{class-name}}Controller>();
     WidgetsBinding.instance.addPostFrameCallback((_) => _init());
+    BreadcrumController.instance.add(
+      BreadcrumItem(
+        label: {{class-name}}Constants.title,
+        router: Routes.{{file-name}},
+      ),
+    );
     super.initState();
   }
 
@@ -64,22 +73,19 @@ class _{{class-name}}PageState extends State<{{class-name}}Page> {
 
   @override
   Widget build(BuildContext context) {
-    return ScaffoldPage(
-      header: PageHeader(
-        title: Text('{{class-name}}'),
-      ),
-    );
+    return ScaffoldPage();
   }
 }
 """;
 
 String pageBaseTemplateFluente = """
 import 'package:fluent_ui/fluent_ui.dart';
+import '../../../../routes/routes.dart';
 import '../controller/{{file-name}}_controller.dart';
 import '../constants/{{file-name}}_constants.dart';
 import 'package:provider/provider.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
-
+import 'package:breadcrumb_fluent_ui/breadcrumb.dart';
 
 class {{class-name}}Page extends StatefulWidget {
   const {{class-name}}Page({Key? key}) : super(key: key);
@@ -101,15 +107,14 @@ class _{{class-name}}PageState extends State<{{class-name}}Page> {
 
   void _init() {}
 
-   List<NavigationPaneItem> get originalItems => [       
-        PaneItem(
-          icon: const Icon(FluentIcons.settings),
-          title: const Text('Firt Page'),
-          body: const ScaffoldPage(
-            header: Text("{{class-name}}"),
+   List<NavigationPaneItem> get originalItems => [ 
+        /*PaneItem(
+          icon: const Icon(FluentIcons.badge),
+          title: const Text('Page Home'),
+          body: const BreadcrumContentBody(
+            initialRoute: Routes.home, 
           ),
-          
-        ),
+        ),*/
       ];
   
 
