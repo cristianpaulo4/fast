@@ -42,7 +42,7 @@ import 'package:fluent_ui/fluent_ui.dart';
 import '../controller/{{file-name}}_controller.dart';
 import '../constants/{{file-name}}_constants.dart';
 import 'package:provider/provider.dart';
-import 'package:breadcrumb_fluent_ui/breadcrumb.dart';
+import 'package:breadcrumb_fluent_ui/breadcrumb_fluent_ui.dart';
 
 
 
