@@ -37,7 +37,7 @@ import 'package:bitsdojo_window/bitsdojo_window.dart';
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:provider/provider.dart';
 import 'package:{{file-name}}/routes/routes.dart';
-import 'package:breadcrumb_fluent_ui/breadcrumb.dart';
+import 'package:breadcrumb_fluent_ui/breadcrumb_fluent_ui.dart';
 
 
 void main() {  
