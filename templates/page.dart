@@ -46,6 +46,7 @@ import 'package:breadcrumb_fluent_ui/breadcrumb_fluent_ui.dart';
 
 
 
+
 class {{class-name}}Page extends StatefulWidget {
   const {{class-name}}Page({Key? key}) : super(key: key);
 
@@ -85,7 +86,7 @@ import '../controller/{{file-name}}_controller.dart';
 import '../constants/{{file-name}}_constants.dart';
 import 'package:provider/provider.dart';
 import 'package:bitsdojo_window/bitsdojo_window.dart';
-import 'package:breadcrumb_fluent_ui/breadcrumb.dart';
+import 'package:breadcrumb_fluent_ui/breadcrumb_fluent_ui.dart';
 
 class {{class-name}}Page extends StatefulWidget {
   const {{class-name}}Page({Key? key}) : super(key: key);
