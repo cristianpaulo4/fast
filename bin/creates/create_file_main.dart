@@ -6,7 +6,7 @@ import '../../templates/file_main_generate_routes.dart';
 import '../../utils/to_upp_case.dart';
 import '../enum/enum_design_system.dart';
 
-enum typesOnStateManeger { provider }
+enum TypesOnStateManeger { provider }
 
 class CreateFileMain {
   static var directory = Directory('lib/');

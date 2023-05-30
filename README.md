@@ -1,5 +1,5 @@
 # Fast CLI
-## Versão do dart 2.17.6
+## Versão do dart 3.0.2
 
 Instalação / Update
 ```

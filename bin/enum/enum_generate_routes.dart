@@ -1,1 +1,1 @@
-enum opcoesGenerateRoutes { routes, generateRoutes}
+enum OpcoesGenerateRoutes { routes, generateRoutes }
