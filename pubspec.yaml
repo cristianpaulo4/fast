@@ -3,7 +3,7 @@ description: This CLI allows the user to quickly create project structures based
 version: 1.0.1
 homepage: https://github.com/cristianpaulo4/fast
 executables: 
-  fast: fast 
+  fast_lite: fast_lite 
 
 environment:
   sdk: '>=2.19.6 <4.0.0'
