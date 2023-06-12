@@ -1,3 +1,6 @@
+## 1.0.4
+
+- Adjuts version Dart SDK.
 ## 1.0.3
 
 - Adjuts.

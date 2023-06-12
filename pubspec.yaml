@@ -1,12 +1,12 @@
 name: fast_lite
 description: This CLI allows the user to quickly create project structures based on clean architecture and provider.
-version: 1.0.3
+version: 1.0.4
 homepage: https://github.com/cristianpaulo4/fast
 executables: 
   fast_lite: fast_lite 
 
 environment:
-  sdk: '>=2.19.6 <4.0.0'
+  sdk: '>=3.0.3 <4.0.0'
 
 
 dependencies:
