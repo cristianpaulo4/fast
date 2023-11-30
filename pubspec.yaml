@@ -6,7 +6,7 @@ executables:
   fast_lite: fast_lite 
 
 environment:
-  sdk: '>=3.0.3 <4.0.0'
+  sdk: '>=3.2.1 <4.0.0'
 
 
 dependencies:
