@@ -1,6 +1,14 @@
 # Fast CLI
 ## Versão do dart 3.0.2
 
+Fast Lite é uma Interface de Linha de Comando (CLI) projetada para facilitar a organização de projetos, empregando padrões de design e arquitetura limpa.
+
+Design system:
+```
+✅ Material ui
+✅ Fluent UI
+```
+
 Instalação / Update
 ```
 dart pub global activate fast_lite

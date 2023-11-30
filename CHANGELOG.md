@@ -1,3 +1,6 @@
+## 1.0.7
+- Update readme
+
 ## 1.0.6
 - Adjuts version Dart SDK.
 
