@@ -3,12 +3,12 @@
 
 Instalação / Update
 ```
-dart pub global activate --source git https://github.com/cristianpaulo4/fast.git
+dart pub global activate fast_lite
 ```
 
 Rodar no terminal dentro da pasta do projeto o comando:
 ```
-fast
+fast_lite
 ```
 
 Listar todos packages globais
@@ -18,6 +18,6 @@ dart pub global list
 
 Remover
 ```
-dart pub global deactivate fast
+dart pub global deactivate fast_lite
 ```
 
