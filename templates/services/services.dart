@@ -1,7 +1,5 @@
-
-
-String servicesTemplate =  """
-abstract class {{class-name}}Services {
+String servicesTemplate = """
+interface class {{class-name}}Services {
   
 }
 """;

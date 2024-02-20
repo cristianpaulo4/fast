@@ -1,7 +1,5 @@
-
-
 String repositoryTemplate = """
-abstract class {{class-name}}Repository {
+interface class {{class-name}}Repository {
   
 }
 """;

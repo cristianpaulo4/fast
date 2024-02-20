@@ -1,3 +1,6 @@
+## 1.0.8
+- Add interface
+
 ## 1.0.7
 - Update readme
 
