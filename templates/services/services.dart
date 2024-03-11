@@ -1,5 +1,5 @@
 String servicesTemplate = """
-interface class {{class-name}}Services {
+abstract interface class {{class-name}}Services {
   
 }
 """;
